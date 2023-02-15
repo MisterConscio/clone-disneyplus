@@ -2,6 +2,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const btns = document.querySelectorAll('[data-tab-button]')
   const questions = document.querySelectorAll('[data-faq-question]')
 
+  const heroSection = document.querySelector('.hero')
+  const heroHeight = heroSection.clientHeight
+
+  window.addEventListener('scroll', function() {
+    const currentPos = window.scrollY
+
+    if (currentPos < heroHeight) {
+      hideElemHeader("hide")
+    } else {
+      hideElemHeader("show")
+    }
+  })
+
   for (let i = 0; i < btns.length; i++) {
     btns[i].addEventListener('click', function(button) {
       const tab_target = button.target.dataset.tabButton
@@ -17,6 +30,16 @@ document.addEventListener('DOMContentLoaded', function() {
     questions[i].addEventListener('click', openCloseAcordeon)
   }
 })
+
+function hideElemHeader(action) {
+  const header = document.querySelector('header')
+
+  if (action == "show") {
+    header.classList.remove('header--hidden')
+  } else if (action == "hide") {
+    header.classList.add('header--hidden')
+  }
+}
 
 function openCloseAcordeon(element) {
   const openClass = "faq__questions__item--is-open"
